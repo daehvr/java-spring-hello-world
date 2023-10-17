@@ -22,7 +22,7 @@ pipeline {
 		        	def pom = readMavenPom file: 'pom.xml'
 		        	version = pom.version
 		        }
-		        sh "mvn install -DskipTests=true"
+		        sh "mvn clean package -DskipTests=true"
 		    }
         }
 	 }
