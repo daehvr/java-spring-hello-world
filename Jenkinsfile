@@ -18,7 +18,7 @@ pipeline {
         	steps {
             	sh 'echo "Building the application"'
                 // Add commands to build application
-                git branch: 'openshift-aws', url: 'https://github.com/pavankjadda/BookStore.git'
+                git branch: 'main', url: 'https://github.com/pavankjadda/BookStore.git'
 		        script {
 		        	def pom = readMavenPom file: 'pom.xml'
 		            version = pom.version
