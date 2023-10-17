@@ -17,7 +17,7 @@ pipeline {
         	steps {
             	sh 'echo "Building the application"'
             	// Add commands to build application
-             	git branch: 'main', url: 'https://github.com/pavankjadda/BookStore.git'
+             	git branch: 'main', url: 'https://github.com/daehvr/java-spring-hello-world.git'
 		     	script {
 		        	def pom = readMavenPom file: 'pom.xml'
 		        	version = pom.version
