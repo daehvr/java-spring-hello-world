@@ -1,29 +1,15 @@
 pipeline {
-	agent any
-	
-	environment {
-		MY_TEST_ENV="Hello Env"
-		
-	}
-	
-	 stages {
-	 	stage('Example stage 1, print Env variable') {
-	 		steps {
-            	echo "echo ENV ${MY_TEST_ENV}" 
-            	echo "Jenkins Running build ID ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        	}
-	 	}
-	 	stage('Stage: Build, Clone code from Github') {
-        	steps {
-            	sh 'echo "Building the application"'
-            	// Add commands to build application
-             	git branch: 'main', url: 'https://github.com/daehvr/java-spring-hello-world.git'
-		     	script {
-		        	def pom = readMavenPom file: 'pom.xml'
-		        	version = pom.version
-		        }
-		        sh "mvn clean package -DskipTests=true"
-		    }
+    agent {
+        docker {
+            image 'maven:3.9.4-eclipse-temurin-17-alpine' 
+            args '-v /root/.m2:/root/.m2' 
         }
-	 }
+    }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -B -DskipTests clean package' 
+            }
+        }
+    }
 }
